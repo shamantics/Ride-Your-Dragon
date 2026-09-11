@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c0a08" />
+  <meta name="description" content="Ride Your Dragon — a private, local-first Shamantics recovery practice." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Ride Your Dragon</title>
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" data-nav="home" aria-label="Home">🐉 <span>Ride Your Dragon</span></button>
+    <button id="installBtn" class="ghost hidden">Install</button>
+  </header>
+
+  <main id="app"></main>
+
+  <nav class="bottomnav" aria-label="Main navigation">
+    <button data-nav="home">Home</button>
+    <button data-nav="ride">Daily Ride</button>
+    <button data-nav="dragons">Dragons</button>
+    <button data-nav="cave">The Cave</button>
+    <button data-nav="journey">Journey</button>
+  </nav>
+
+  <template id="homeTpl">
+    <section class="hero">
+      <div class="eyebrow">SHAMANTICS RECOVERY</div>
+      <h1>What dragon is awake?</h1>
+      <p class="lede">Which Tree are you feeding? Who has the reins?</p>
+      <div class="hero-actions">
+        <button class="primary" data-nav="ride">Start Daily Ride</button>
+        <button class="secondary" data-nav="dragons">Explore the Nine Dragons</button>
+      </div>
+    </section>
+    <section class="three-questions card">
+      <h2>The three questions</h2>
+      <ol>
+        <li><strong>What Dragon is awake?</strong><span>Notice the energy without becoming it.</span></li>
+        <li><strong>Which Tree am I feeding?</strong><span>Fear–Guilt–Shame or Love–Joy–Peace?</span></li>
+        <li><strong>Who has the reins?</strong><span>The urge can speak without getting the final vote.</span></li>
+      </ol>
+    </section>
+    <section class="grid two">
+      <article class="card"><h3>Enter the Cave</h3><p>Deep inventory for resentment, fear, shame, grief, relationships, control, harm, and repair.</p><button data-nav="cave" class="textbtn">Begin inventory →</button></article>
+      <article class="card"><h3>Call the Council</h3><p>Build a private list of people who can ground, challenge, guide, or support you.</p><button data-nav="council" class="textbtn">Open Council →</button></article>
+    </section>
+    <section class="privacy card"><strong>Private by design.</strong> Your entries stay in this browser on this device unless you export them yourself.</section>
+  </template>
+
+  <template id="rideTpl">
+    <section class="section-head"><div class="eyebrow">DAILY RIDE</div><h1>Check the reins</h1><p>About 60–90 seconds. No score is good or bad; it tells you what support you may need.</p></section>
+    <form id="rideForm" class="stack">
+      <section class="card"><label class="label">Dragon Scale <output id="scaleOut">4</output>/9</label><input id="scale" name="scale" type="range" min="0" max="9" value="4" /><div class="scale-labels"><span>Sleeping</span><span>Awake</span><span>Dragon fire</span></div></section>
+      <section class="card"><h2>What is here?</h2><div class="chips" id="emotionChips"></div></section>
+      <section class="card"><h2>Which Tree are you feeding?</h2><div class="choice-grid"><label class="choice fear"><input type="radio" name="tree" value="Fear–Guilt–Shame" required /><span><b>Fear · Guilt · Shame</b><small>Protection, punishment, hiding</small></span></label><label class="choice love"><input type="radio" name="tree" value="Love–Joy–Peace" required /><span><b>Love · Joy · Peace</b><small>Connection, presence, clarity</small></span></label></div></section>
+      <section class="card"><h2>Who has the reins?</h2><div class="choice-grid"><label class="choice"><input type="radio" name="reins" value="Dragon" required /><span><b>The Dragon</b><small>I feel pulled by the urge or pattern.</small></span></label><label class="choice"><input type="radio" name="reins" value="Rider" required /><span><b>The Rider</b><small>I can feel it and still choose.</small></span></label></div></section>
+      <section class="card"><h2>What do you need most?</h2><select name="need" required><option value="">Choose…</option><option>Ground</option><option>Feel</option><option>Create</option><option>Act</option><option>Connect</option><option>Tell the Truth</option><option>Call the Council</option><option>Repair</option><option>Integrate</option></select></section>
+      <section class="card"><label class="label" for="note">One sentence of truth <span class="muted">(optional)</span></label><textarea id="note" name="note" rows="4" placeholder="What is actually happening right now?"></textarea></section>
+      <button class="primary wide" type="submit">Save Daily Ride</button>
+    </form>
+    <div id="rideResult"></div>
+  </template>
+
+  <template id="dragonsTpl">
+    <section class="section-head"><div class="eyebrow">THE NINE NON-STEPS</div><h1>The Nine Dragons</h1><p>Each dragon names a survival pattern and points toward a gift.</p></section>
+    <section id="dragonGrid" class="dragon-grid"></section>
+  </template>
+
+  <template id="caveTpl">
+    <section class="section-head"><div class="eyebrow">DEEP INVENTORY</div><h1>Enter the Cave</h1><p>We do not enter the cave to punish ourselves. We enter to see what the dragon has been guarding.</p></section>
+    <div class="notice">If you feel flooded or unsafe, stop the inventory. Ground first and contact appropriate support. This practice is not emergency or clinical care.</div>
+    <section id="inventoryList" class="stack"></section>
+  </template>
+
+  <template id="councilTpl">
+    <section class="section-head"><div class="eyebrow">NON-STEP SEVEN</div><h1>Call the Council</h1><p>A Guide helps you remember the reins are still in your hands.</p></section>
+    <form id="councilForm" class="card stack compact">
+      <input name="name" required placeholder="Name" />
+      <input name="role" required placeholder="Role — friend, sponsor, therapist, pastor…" />
+      <input name="contact" placeholder="Phone or contact note" />
+      <select name="gift"><option>Listens</option><option>Tells me the truth</option><option>Grounds me</option><option>Challenges excuses</option><option>Recovery wisdom</option><option>Professional support</option><option>Spiritual support</option></select>
+      <button class="primary" type="submit">Add to Council</button>
+    </form>
+    <section id="councilList" class="stack"></section>
+  </template>
+
+  <template id="journeyTpl">
+    <section class="section-head"><div class="eyebrow">PATTERN RECOGNITION</div><h1>Your Journey</h1><p>This is not a streak counter. It is a mirror for recurring patterns.</p></section>
+    <section id="stats" class="stats"></section>
+    <section class="card"><h2>Recent Daily Rides</h2><div id="recentRides"></div></section>
+    <section class="card"><h2>Your data</h2><p class="muted">Export a private backup or erase everything stored by this app on this device.</p><div class="actions"><button id="exportBtn" class="secondary">Export JSON</button><button id="eraseBtn" class="danger">Erase local data</button></div></section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
